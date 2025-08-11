@@ -1,19 +1,12 @@
-import { gemini} from "./ai";
+import type { AIMessage } from "../types";
+import { openai } from "./ai";
 
+export const runLLM = async ({ messages }: { messages: AIMessage[] }) => {
+    const response = await openai.chat.completions.create({
+        model: 'gemini-2.0-flash-lite',
+        temperature: 0.1,
+        messages,
+    })
 
-
-export async function runLLM({userMessage}:{userMessage:string}) {
-    // const response = await openai.chat.completions.create({
-    //     model:"gpt-4o-mini",
-    //     temperature:0.1,
-    //     messages: [{ role: "user", content: userMessage}]
-    // })
-    // return response.choices[0].message.content;
-    const responses = await gemini.models.generateContent({
-        model: "gemini-2.5-flash-lite",
-        contents: userMessage,
-    });
-
-    return responses.text;
+    return response.choices[0].message.content
 }
-

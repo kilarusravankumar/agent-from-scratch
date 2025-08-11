@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { runLLM } from "./src/llm";
 import dotenv from "dotenv";
+import { addMessages,getMessages } from "./src/memory";
 
 dotenv.config();
 const userMessage = process.argv[2]
@@ -10,10 +11,14 @@ if (!userMessage) {
   process.exit(1)
 }
 
+await addMessages([{role: "user", content: userMessage}])
+const messages = await getMessages()
 
-console.log("**Response**\n");
+const response = await runLLM({
+  messages: [
+    ...messages,
+  ]
+});
 
-const response = await runLLM({userMessage});
-
-console.log(" --> Gemini:\n");
+await addMessages([{role:"assistant", content: response}])
 console.log(response);
