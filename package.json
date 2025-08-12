@@ -5,6 +5,9 @@
   "scripts": {
     "start": "npx tsx index.ts"
   },
+  "overrides": {
+    "whatwg-url": "13.0.0"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
@@ -12,7 +15,8 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "dotenv": "^16.4.5",
+    "@google/genai": "^1.12.0",
+    "dotenv": "^17.2.1",
     "got": "^14.4.4",
     "lowdb": "^7.0.1",
     "openai": "^4.70.3",
